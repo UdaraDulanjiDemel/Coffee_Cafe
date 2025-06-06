@@ -17,7 +17,7 @@ const MenuHeader = styled.div`
 
 const MenuTitle = styled.h2`
   font-size: 2.5rem;
-  color: #2c3e50;
+  color:rgb(37, 98, 159);
   margin-bottom: 1rem;
 `;
 
