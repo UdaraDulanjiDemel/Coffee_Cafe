@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { addToCart } from '../store/cartSlice';
@@ -80,10 +80,22 @@ const ProductImage = styled.img`
   height: 250px;
   object-fit: cover;
   transition: transform 0.3s ease;
+  background-color: #f5f5f5;
 
   ${ProductCard}:hover & {
     transform: scale(1.05);
   }
+`;
+
+const ImagePlaceholder = styled.div`
+  width: 100%;
+  height: 250px;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 1.2rem;
 `;
 
 const ProductInfo = styled.div`
@@ -147,10 +159,18 @@ const CategoryLabel = styled.span`
 function Menu() {
   const dispatch = useDispatch();
   const { items, categories, selectedCategory } = useSelector((state) => state.products);
+  const [imageErrors, setImageErrors] = useState({});
 
   const filteredProducts = selectedCategory === 'All'
     ? items
     : items.filter(item => item.category === selectedCategory);
+
+  const handleImageError = (productId) => {
+    setImageErrors(prev => ({
+      ...prev,
+      [productId]: true
+    }));
+  };
 
   return (
     <MenuContainer>
@@ -182,7 +202,18 @@ function Menu() {
       <ProductsGrid>
         {filteredProducts.map(product => (
           <ProductCard key={product.id}>
-            <ProductImage src={product.image} alt={product.name} />
+            {imageErrors[product.id] ? (
+              <ImagePlaceholder>
+                {product.name}
+              </ImagePlaceholder>
+            ) : (
+              <ProductImage 
+                src={product.image} 
+                alt={product.name}
+                onError={() => handleImageError(product.id)}
+                loading="lazy"
+              />
+            )}
             <CategoryLabel>{product.category}</CategoryLabel>
             <ProductInfo>
               <ProductName>{product.name}</ProductName>
