@@ -286,8 +286,6 @@ function Home() {
                     ${product.price.toFixed(2)}
                   </Typography>
                   <Button
-                    component={Link}
-                    to="/menu"
                     variant="contained"
                     fullWidth
                     sx={{
