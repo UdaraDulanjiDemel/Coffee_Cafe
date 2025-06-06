@@ -5,6 +5,10 @@ import { styled } from '@mui/material/styles';
 import { LocalCafe as CoffeeIcon, ShoppingCart as CartIcon } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
 import Home from './pages/Home';
+import Menu from './pages/Menu';
+import Cart from './pages/Cart';
+import About from './pages/About';
+import Contact from './pages/Contact';
 
 // Styled components
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
@@ -85,7 +89,10 @@ function App() {
       <Box component="main" sx={{ flexGrow: 1 }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* Add other routes here */}
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </Box>
 
